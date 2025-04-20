@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident Profile Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'resident_profile.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Resident Profile Form</h2>
+
+        <!-- Display form errors -->
+        {% if form.errors %}
+            <div style="color: red;">
+                <strong>Please correct the following errors:</strong>
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ field|capfirst }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form action="{% url 'resident_profile' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}    
+
+            <!-- Resident Profile Section -->
+            <fieldset>
+                <legend>Resident Profile</legend>
+                <label for="id_name">Full Name:</label>
+                {{ form.name }}
+
+                <label for="id_age">Age:</label>
+                {{ form.age }}
+
+                <label for="id_gender">Gender:</label>
+                {{ form.gender }}
+
+                <label for="id_room">Room Number:</label>
+                {{ form.room }}
+
+                <label for="id_photo">Upload Photo:</label>
+                {{ form.photo }}
+            </fieldset>
+
+            <!-- Contact Details -->
+            <fieldset>
+                <legend>Contact Details</legend>
+                <label for="id_phone">Phone Number:</label>
+                {{ form.phone }}
+
+                <label for="id_emergency_contact">Emergency Contact Name:</label>
+                {{ form.emergency_contact }}
+
+                <label for="id_emergency_phone">Emergency Contact Number:</label>
+                {{ form.emergency_phone }}
+            </fieldset>
+
+            <!-- Preferences -->
+            <fieldset>
+                <legend>Preferences</legend>
+                <label for="id_meal">Preferred Meal Choices:</label>
+                {{ form.meal }}
+
+                <label for="id_assistance">Wheelchair or Special Assistance Required?</label>
+                {{ form.assistance }}
+
+                <label for="id_visit_schedule">Family Visit Schedule:</label>
+                {{ form.visit_schedule }}
+            </fieldset>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

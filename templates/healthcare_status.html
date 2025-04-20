@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Status</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'healthcare_status.css' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">CompanionCare</div>
+        <div class="nav-right">
+            <div class="profile">
+                {% if resident.photo %}
+                    <img src="{{ resident.photo.url }}" alt="Profile">
+                {% else %}
+                    <img src="{% static 'default_profile.jpg' %}" alt="Default Profile">
+                {% endif %}
+                <span>{{ resident.name }}</span>
+            </div>
+            <div class="nav-icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="dashboard">
+        <main class="content">
+            <section id="health" class="card">
+                <h2>Update Health Status</h2>
+                <form method="POST" action="{% url 'update_health_status' %}">
+                    {% csrf_token %}
+                    
+                    
+                    <h3>Medical Conditions</h3>
+                    <label><input type="checkbox" name="conditions" value="Diabetes" {% if "Diabetes" in conditions_set %}checked{% endif %}> Diabetes</label>
+<label><input type="checkbox" name="conditions" value="Hypertension" {% if "Hypertension" in conditions_set %}checked{% endif %}> Hypertension</label>
+<label><input type="checkbox" name="conditions" value="Asthma" {% if "Asthma" in conditions_set %}checked{% endif %}> Asthma</label>
+<label>
+    <input type="checkbox" name="conditions" value="Others" id="otherConditionCheckbox" {% if "Others" in conditions_set %}checked{% endif %} onchange="toggleOtherCondition()">
+    Others
+</label>
+
+<!-- Hidden input field for 'Other' condition -->
+<input type="text" id="otherConditionInput" name="other_condition" placeholder="Enter other condition" style="display: none;" value="{{ resident.other_condition|default_if_none:'' }}">
+                    
+                    <h3>Allergies</h3>
+                    <input type="text" name="allergies" placeholder="Enter allergies" value="{{ resident.allergies|default_if_none:'' }}">
+                    
+                    <h3>Medications</h3>
+                    <textarea name="medications" placeholder="List current medications...">{{ resident.medications|default_if_none:'' }}</textarea>
+                    
+                    <h3>Medication Schedule</h3>
+                    <select name="medication_schedule">
+                        <option value="Morning" {% if resident.medication_schedule == "Morning" %}selected{% endif %}>Morning</option>
+                        <option value="Afternoon" {% if resident.medication_schedule == "Afternoon" %}selected{% endif %}>Afternoon</option>
+                        <option value="Night" {% if resident.medication_schedule == "Night" %}selected{% endif %}>Night</option>
+                    </select>
+                    
+                    <h3>Doctor & Emergency Details</h3>
+                    <input type="text" name="doctor_name" placeholder="Doctor’s Name" value="{{ resident.doctor_name|default_if_none:'' }}">
+                    <input type="number" name="doctor_phone" placeholder="Doctor’s Contact Number" value="{{ resident.doctor_phone|default_if_none:'' }}">
+
+                    <h3>Medication Reminder</h3>
+                    <input type="time" name="reminder_time" value="{{ resident.reminder_time|default_if_none:'' }}">
+
+                    <button type="submit" class="btn">Update Health Status</button>
+                </form>
+            </section>
+        </main>
+        
+        <aside class="sidebar">
+            <h3>Dashboard</h3>
+            <a href="{% url 'resident_dashboard' %}">Resident Profile</a>
+            <a href="{% url 'resident_dashboard' %}">Health Status</a>
+            <a href="{% url 'message_dashboard' %}">Messages</a>
+            <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+        </aside>
+    </div>
+    <script>
+        function toggleOtherCondition() {
+            let checkbox = document.getElementById("otherConditionCheckbox");
+            let inputField = document.getElementById("otherConditionInput");
+    
+            if (checkbox.checked) {
+                inputField.style.display = "block";
+                inputField.required = true; 
+            } else {
+                inputField.style.display = "none";
+                inputField.required = false;
+                inputField.value = ""; 
+            }
+        }
+    
+        // Run this function on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            toggleOtherCondition(); // Ensures input is visible if "Others" is pre-checked
+        });
+    </script>
+</body>
+</html>

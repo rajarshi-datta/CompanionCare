@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'resident_user_dashboard.css' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">CompanionCare</div>
+        <div class="nav-right">
+            <div class="profile">
+                {% if resident.photo %}
+                    <img src="{{ resident.photo.url }}" alt="Profile">
+                {% else %}
+                    <img src="{% static 'default_profile.jpg' %}" alt="Default Profile">
+                {% endif %}
+                <span>{{ resident.name }}</span>
+            </div>
+            <div class="nav-icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="dashboard">
+        <main class="content">
+            <section id="profile" class="card">
+                <h2>Resident Profile</h2>
+                <div class="profile-pic-container">
+                    {% if resident.photo %}
+                        <img src="{{ resident.photo.url }}" alt="Resident Photo" class="profile-pic">
+                    {% else %}
+                        <img src="{% static 'default_profile.jpg' %}" alt="Default Profile" class="profile-pic">
+                    {% endif %}
+                </div>
+                <p><strong>Name:</strong> {{ resident.name }}</p>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Age:</strong> {{ resident.age }}</p>
+                <p><strong>Room:</strong> {{ resident.room }}</p>
+                <p><strong>Gender:</strong> {{ resident.gender }}</p>
+                <p><strong>Phone Number:</strong> {{ resident.phone }}</p>
+                <p><strong>Preferred Meal Choices:</strong> {{ resident.meal }}</p>
+                <p><strong>Family Visit Schedule:</strong> {{ resident.visit_schedule }}</p>
+                <p><strong>Emergency Contact Name:</strong> {{ resident.emergency_contact }}</p>
+                <p><strong>Emergency Contact Number:</strong> {{ resident.emergency_phone }}</p>
+            </section>
+
+            <section id="health" class="card">
+                <h2>Health Status</h2>
+                <p><strong>Medical Conditions:</strong> 
+                    {% if resident.conditions %} {{ resident.conditions }} {% else %} None {% endif %}
+                </p>
+                <p><strong>Allergies:</strong> 
+                    {% if resident.allergies %} {{ resident.allergies }} {% else %} None {% endif %}
+                </p>
+                <p><strong>Medications:</strong> 
+                    {% if resident.medications %} {{ resident.medications }} {% else %} None {% endif %}
+                </p>
+                <p><strong>Medication Schedule:</strong> 
+                    {% if resident.medication_schedule %} {{ resident.medication_schedule }} {% else %} Not Set {% endif %}
+                </p>
+                <p><strong>Doctor's Name:</strong> 
+                    {% if resident.doctor_name %} {{ resident.doctor_name }} {% else %} Not Provided {% endif %}
+                </p>
+                <p><strong>Doctor's Contact:</strong> 
+                    {% if resident.doctor_phone %} {{ resident.doctor_phone }} {% else %} Not Available {% endif %}
+                </p>
+                <p><strong>Medication Reminder:</strong> 
+                    {% if resident.reminder_time %} {{ resident.reminder_time }} {% else %} No Reminder Set {% endif %}
+                </p>
+                <a href="{% url 'healthcare_status' %}" class="btn">Update Health Status</a>
+
+            </section>
+
+            
+        </main>
+        
+        <aside class="sidebar">
+            <h3>Dashboard</h3>
+            <a href="{% url 'resident_profile' %}">Resident Profile</a>
+            <a href="{% url 'healthcare_status' %}">Health Status</a>
+            <a href="{% url 'message_dashboard' %}">Messages & Notifications</a>
+            <a href="tel:{{ resident.emergency_phone }}" class="btn emergency-call">
+                Call Emergency Contact
+            </a>
+            <a href="javascript:void(0);" class="btn emergency-sms" onclick="sendEmergencySMS()">Send Emergency SMS</a>
+            <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+
+        </aside>
+    </div>
+    <script>
+        function sendEmergencySMS() {
+            fetch("{% url 'send_emergency_sms' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
+

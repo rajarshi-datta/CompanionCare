@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caregiver Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'caregiver_dashboard.css' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">CompanionCare</div>
+        <div class="nav-right">
+            <div class="profile">
+                {% if visitor_profile.profile_picture %}
+                     <img src="{{ visitor_profile.profile_picture.url }}" alt="Profile">
+                {% else %}
+                    <img src="{% static 'default_profile.jpg' %}" alt="Default Profile">
+                
+                {% endif %}
+               <span>{{ visitor_profile.user.first_name }} {{ visitor_profile.user.last_name }}</span>
+            </div>
+            <div class="nav-icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="dashboard">
+        <main class="content">
+            <section id="profile" class="card">
+                <h2>Visitors Profile</h2>
+                <div class="profile-pic-container">
+                   {% if visitor_profile.profile_picture %}
+                        <img src="{{ visitor_profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+                    {% else %}
+                        <img src="{% static 'default_profile.jpg' %}" alt="Default Profile" class="profile-pic">
+                    {% endif %}
+                </div>
+                <p><strong>Name:</strong> {{ visitor_profile.user.first_name }} {{ visitor_profile.user.last_name }}</p>
+                <p><strong>Email:</strong> {{ visitor_profile.user.email }}</p>
+                <p><strong>Phone:</strong> {{ visitor_profile.phone }}</p>
+                <p><strong>Address:</strong>{{visitor_profile.address}}</p>
+                <a href="{% url 'visitor_profile' %}" class="btn">Edit Profile</a>
+            </section>
+            
+
+            </main>
+        <aside class="sidebar">
+            <h3>Dashboard</h3>
+            <a href="{% url 'visitor_profile' %}">Edit Profile</a>
+            <a href="{% url 'visitor_msg' %}">Message</a>
+            <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+        </aside>
+    </div>
+</body>
+</html>
+
+

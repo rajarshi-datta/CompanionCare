@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'userlogin.css' %}"> <!-- Link to your existing styles -->
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <h1>Companion Care</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="file:///E:/mini%20project/first%20page.html">Home</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Login Section -->
+    <div class="login-container">
+        <div class="login-box">
+            <h2> Caregiver Login</h2>
+            <form action="{% url 'caregiver_login' %}" method="POST">
+                {% csrf_token %}
+             <!-- Redirect to dashboard page after login -->
+                <div class="input-field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="input-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+
+            <!-- Sign Up Button -->
+            <p>New user? <a href="{% url 'caregiver_signup' %}" class="signup-btn">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Companion Care. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

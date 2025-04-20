@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'caregiver_resident_detail.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Resident Profile</h2>
+        <section id="profile" class="card">
+        <div class="profile-pic-container">
+            {% if resident.photo %}
+                <img src="{{ resident.photo.url }}" alt="Resident Photo" class="profile-pic">
+            {% else %}
+                <img src="{% static 'default_profile.jpg' %}" alt="Default Profile" class="profile-pic">
+            {% endif %}
+        </div>
+
+        <p><strong>Name:</strong> {{ resident.name }}</p>
+        <p><strong>Room No.:</strong> {{ resident.room }}</p>
+        <p><strong>Phone:</strong> {{ resident.phone }}</p>
+        <p><strong>Preferred Meal:</strong> {{ resident.meal }}</p>
+        <p><strong>Wheelchair Assistance:</strong> {{ resident.assistance }}</p>
+        <p><strong>Emergency Contact Name:</strong> {{ resident.emergency_contact }}</p>
+        <p><strong>Emergency Contact No.:</strong> {{ resident.emergency_phone }}</p>
+        <p><strong>Medications:</strong> {{ resident.medications }}</p>
+        <p><strong>Doctor's Contact:</strong> {{ resident.doctor_phone }}</p>
+
+        <a href="{% url 'resident_list' %}" class="btn">Back to List</a>
+    </div>
+</section>
+</body>
+</html>

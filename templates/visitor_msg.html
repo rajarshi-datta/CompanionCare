@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visitor Messages</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'vistor_msg.css' %}">
+</head>
+<body> 
+    <nav class="navbar">
+        <div class="logo">CompanionCare</div>
+        <div class="nav-right">
+            <div class="profile">
+                {% if visitor_profile.profile_picture %}
+                    <img src="{{ visitor_profile.profile_picture.url }}" alt="Profile">
+                {% else %}
+                    <img src="{% static 'default_profile.jpg' %}" alt="Default">
+                {% endif %}
+                <span>{{ visitor_profile.user.username }}</span>
+            </div>
+            <a href="{% url 'user_logout' %}" class="logout-link">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Meeting Request</h1>
+
+        <!-- Form to send request -->
+        <form method="post">
+            {% csrf_token %}
+            <label for="resident">Select Resident:</label>
+            <select name="resident_id" required>
+                {% for resident in residents %}
+                    <option value="{{ resident.id }}">{{ resident.name }}</option>
+                    {% empty %}
+                <option>No residents available</option>
+                {% endfor %}
+            </select>
+
+            <label for="date">Date:</label>
+            <input type="date" name="scheduled_date" required>
+
+            <label for="time">Time:</label>
+            <input type="time" name="scheduled_time" required>
+
+            <button type="submit">Send Request</button>
+        </form>
+
+        <hr>
+
+        <h2>Your Requests</h2>
+        {% if meeting_requests %}
+            {% for req in meeting_requests %}
+                <div class="request-card">
+                    <p><strong>Resident:</strong> {{ req.resident.name }}</p>
+                    <p><strong>Date:</strong> {{ req.scheduled_date }}</p>
+                    <p><strong>Time:</strong> {{ req.scheduled_time }}</p>
+                    <p><strong>Status:</strong> 
+                        <span class="{% if req.status == 'accepted' %}accepted{% elif req.status == 'declined' %}declined{% else %}pending{% endif %}">
+                            {{ req.status|title }}
+                        </span>
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No meeting requests sent yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

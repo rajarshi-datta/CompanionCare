@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caregiver Sign Up</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'care_giver.css' %}">
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <h1>Companion Care</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'care_giver' %}">Login</a></li>
+        </ul>
+    </div>
+
+    <div class="signup-container">
+        <div class="signup-box">
+            <h2>Caregiver Sign Up</h2>
+            
+    
+            
+            <form method="post" action="{% url 'caregiver_signup' %}">
+                {% csrf_token %}
+
+                <div class="input-field">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required>
+                </div>
+                <div class="input-field">
+                    <label for="email">Email (Verification Required)</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Choose a username" required>
+                </div>
+                <div class="input-field">
+                    <label for="password1">Password</label>
+                    <input type="password" id="id_password1" name="password1" placeholder="Enter a password" required>
+                </div>
+                <div class="input-field">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" id="id_password2" name="password2" placeholder="Confirm your password" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="experience">Experience (Years)</label>
+                    <input type="number" id="experience" name="experience" min="0" placeholder="Enter your experience in years" required>
+                </div>
+                <div class="input-field">
+                    <label for="qualifications">Qualifications</label>
+                    <input type="text" id="qualifications" name="qualifications" placeholder="Enter your qualifications" required>
+                </div>
+                <div class="input-field">
+                    <label for="availability">Availability</label>
+                    <input type="text" id="availability" name="availability" placeholder="Days & hours available" required>
+                </div>
+                <div class="input-field">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="Enter your service area" required>
+                </div>
+
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+
+            <p>Already have an account? <a href="{% url 'care_giver' %}" class="login-link">Login</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Companion Care. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

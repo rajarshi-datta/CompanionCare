@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CompanionCare - Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">CompanionCare</div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Login</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'user_login' %}">User  Login</a>
+                   
+                    <a href="{% url 'care_giver' %}">caregivers</a>
+                    <a href="{% url 'visitors_login' %}">visitor</a>
+                </div>
+            </li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Image Slider Section -->
+    <section class="image-slider">
+        <div class="slider">
+            <img src="{{ media_url }}pic1.jpg" alt="Old Age Home 1" class="slide">
+            <img src="{{ media_url }}pic2.jpg" alt="Old Age Home 2" class="slide">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <h1>Welcome to CompanionCare</h1>
+            <p>Your Personalized Digital Assistant for Elderly Care</p>
+            <a href="#services" class="btn">Explore More</a>
+        </div>
+    </header>
+
+    <section class="features" id="services">
+        <h2>Our Unique Features</h2>
+        <div class="feature-list">
+            <div class="feature">
+                <h3>AI Health Insights</h3>
+                <p>Get predictive health analysis using AI-powered insights.</p>
+            </div>
+            <div class="feature">
+                <h3>24/7 Virtual Assistance</h3>
+                <p>Connect with caregivers anytime for instant support.</p>
+            </div>
+            <div class="feature">
+                <h3>Smart Activity Tracker</h3>
+                <p>Monitor daily routines and activities with ease.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2>Why Choose CompanionCare?</h2>
+        <p>We bridge the gap between caregivers and residents by integrating cutting-edge technology for an enhanced caregiving experience.</p>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Get in Touch</h2>
+        <p>Email: support@companioncare.com</p>
+        <p>Phone: +123 456 7890</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 CompanionCare. Crafted with ❤️ for better care.</p>
+    </footer>
+
+   
+</body>
+</html>

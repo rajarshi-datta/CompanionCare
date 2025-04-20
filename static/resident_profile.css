@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto; /* Allows scrolling if content is too tall */
+}
+
+/* Container for the form */
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 420px;
+    max-height: 90vh; /* Ensures form does not exceed the screen height */
+    overflow-y: auto; /* Scrollable if content is too tall */
+    position: relative;
+    margin-top: 20px; /* Ensures form is visible at the top */
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form Fieldset */
+fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+/* Legend */
+legend {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 0.95em;
+}
+
+/* Input Fields & Select Dropdown */
+input, select {
+    width: calc(100% - 16px);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+/* File Input */
+input[type="file"] {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    cursor: pointer;
+}
+
+/* Submit & Dashboard Buttons */
+.submit-btn, .dashboard-btn {
+    width: 100%;
+    background: #3498db;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block; /* Ensures both buttons take full width */
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Hover Effect for Buttons */
+.submit-btn:hover, .dashboard-btn:hover {
+    background: #2a82c9;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 480px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+}

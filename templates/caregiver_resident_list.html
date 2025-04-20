@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'caregiver_resident_list.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">CompanionCare</div>
+        <div class="nav-right">
+            <a href="{% url 'caregiver_dashboard' %}" class="back-btn">Back to Dashboard</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h2>Resident List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Room No.</th>
+                    <th>Phone</th>
+                    <th>View Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resident in residents %}
+                <tr>
+                    <td>{{ resident.name }}</td>
+                    <td>{{ resident.room }}</td>
+                    <td>{{ resident.phone }}</td>
+                    <td>
+                        <a href="{% url 'resident_detail' resident.id %}" class="btn">View Profile</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No residents found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+
+</body>
+</html>

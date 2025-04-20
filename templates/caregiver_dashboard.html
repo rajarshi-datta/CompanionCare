@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caregiver Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'caregiver_dashboard.css' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">CompanionCare</div>
+        <div class="nav-right">
+            <div class="profile">
+                {% if caregiver_profile.profile_picture %}
+                    <img src="{{ caregiver_profile.profile_picture.url }}" alt="Profile">
+                {% else %}
+                    <img src="{% static 'default_profile.jpg' %}" alt="Default Profile">
+                {% endif %}
+                <span>{{ caregiver_profile.user.first_name }} {{ caregiver_profile.user.last_name }}</span>
+            </div>
+            <div class="nav-icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="dashboard">
+        <main class="content">
+            <section id="profile" class="card">
+                <h2>Caregiver Profile</h2>
+                <div class="profile-pic-container">
+                    {% if caregiver_profile.profile_picture %}
+                        <img src="{{ caregiver_profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+                    {% else %}
+                        <img src="{% static 'default_profile.jpg' %}" alt="Default Profile" class="profile-pic">
+                    {% endif %}
+                </div>
+                <p><strong>Name:</strong> {{ caregiver_profile.user.first_name }} {{ caregiver_profile.user.last_name }}</p>
+                <p><strong>Email:</strong> {{ caregiver_profile.user.email }}</p>
+                <p><strong>Phone:</strong> {{ caregiver_profile.phone }}</p>
+                <p><strong>Address:</strong> {{ caregiver_profile.address }}</p>
+                <p><strong>Experience:</strong> {{ caregiver_profile.experience }} years</p>
+                <p><strong>Qualifications:</strong> {{ caregiver_profile.qualifications }}</p>
+                <p><strong>Specialization:</strong> {{ caregiver_profile.specialization }}</p>
+                <p><strong>Languages Spoken:</strong> {{ caregiver_profile.languages }}</p>
+                <p><strong>Availability:</strong> {{ caregiver_profile.availability }}</p>
+                <p><strong>Service Hours:</strong> {{ caregiver_profile.service_start_time }} - {{ caregiver_profile.service_end_time }}</p>
+                <a href="{% url 'caregiver_profile' %}" class="btn">Edit Profile</a>
+            </section>
+
+            <section id="assigned-residents" class="card">
+                <h2>Resident name and details</h2>
+                <a href="{% url 'resident_list' %}" class="btn">View Residents</a>
+            </section>
+        </main>
+        
+        <aside class="sidebar">
+            <h3>Dashboard</h3>
+            <a href="{% url 'caregiver_dashboard' %}">Home</a>
+            <a href="{% url 'caregiver_profile' %}">Edit Profile</a>
+            <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+        </aside>
+    </div>
+    
+
+</body>
+</html>
