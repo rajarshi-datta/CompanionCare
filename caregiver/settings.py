@@ -51,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'caregiver.urls'
@@ -154,3 +156,5 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = "companioncareeplus@gmail.com"  # Your Gmail address
 EMAIL_HOST_PASSWORD = "belt isjy upwc tiul"  # Your App Password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
