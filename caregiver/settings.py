@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-+%_e33hc1lvvnl_h9l@to)ihs%2bmjz1#vz^s5g(@73s@0@r04
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['CompanionCareplus']
+ALLOWED_HOSTS = ['CompanionCareplus', '127.0.0.1', 'localhost']
+
 
 
 # Application definition
@@ -77,17 +78,17 @@ AUTH_USER_MODEL = 'home.CustomUser'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'caregiver',  # Your database name
-        'USER': 'root',  # MySQL username (change if different)
-        'PASSWORD': '159669',  # MySQL password
-        'HOST': 'localhost',  # Running locally
-        'PORT': '3306',  # Default MySQL port
+        'NAME': 'railway',  # The database name on Railway
+        'USER': 'root',  # The user on Railway's MySQL database
+        'PASSWORD': 'xfhXvZCEcbDprDLtljAOEjmgRIuKujfL',  # The password for the MySQL user
+        'HOST': 'centerbeam.proxy.rlwy.net',  # Correct Railway host
+        'PORT': '58092',  # Correct Railway port
     }
 }
-
 
 
 # Password validation
@@ -153,4 +154,3 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = "companioncareeplus@gmail.com"  # Your Gmail address
 EMAIL_HOST_PASSWORD = "belt isjy upwc tiul"  # Your App Password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
